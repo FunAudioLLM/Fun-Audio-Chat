@@ -182,15 +182,10 @@ class GlobalModelManager:
         ).to(self.device)
         
         # set gen args
-        self.gen_kwargs = DEFAULT_S2M_GEN_KWARGS
-        if self.gen_kwargs['eos_token_id'] is None:
-            self.gen_kwargs['eos_token_id'] = [self.processor.tokenizer.eos_token_id,
-                                        self.processor.tokenizer.convert_tokens_to_ids("<|im_end|>")]
-        if self.gen_kwargs['pad_token_id'] is None:
-            self.gen_kwargs['pad_token_id'] = self.processor.tokenizer.pad_token_id
-        if self.gen_kwargs['bad_words_ids'] is None:
+        self.gen_kwargs = DEFAULT_S2M_GEN_KWARGS.copy()
+        if 'bad_words_ids' not in self.gen_kwargs or self.gen_kwargs['bad_words_ids'] is None:
             self.gen_kwargs['bad_words_ids'] = [[self.processor.tokenizer.convert_tokens_to_ids('<|audio_bos|>'),
-                                            self.processor.tokenizer.convert_tokens_to_ids('<|sil|>')]]
+                                                self.processor.tokenizer.convert_tokens_to_ids('<|sil|>')]]
 
         self.model.sp_gen_kwargs = DEFAULT_SP_GEN_KWARGS.copy()
         

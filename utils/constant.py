@@ -71,6 +71,8 @@ DEFAULT_S2M_GEN_KWARGS = {
     'max_new_tokens': 512,
     'repetition_penalty': 1.2,
     'length_penalty': 1.0,
+    'eos_token_id': 151645,
+    'pad_token_id': 151643,
 }
 
 MAX_HISTORY_TURNS = 8  # Keep only the latest 8 rounds of conversation (16 messages: 8 user + 8 assistant)
