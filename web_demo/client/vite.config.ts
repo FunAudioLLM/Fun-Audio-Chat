@@ -3,11 +3,13 @@ import topLevelAwait from "vite-plugin-top-level-await";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
+
+  const simplexTarget = env.VITE_SIMPLEX_TARGET || "http://localhost:11236";
   
-  // proxy config for simplex (11236)
+  // proxy config for half-duplex (11236)
   const proxyConf: Record<string, string | ProxyOptions> = {
     "/api/simplex": {
-      target: "http://localhost:11236",
+      target: simplexTarget,
       changeOrigin: true,
       ws: true,
       secure: false,
