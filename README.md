@@ -29,6 +29,7 @@
 - [Training](#training)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
+- [Research Intern Position](#-research-intern-position)
 - [Contact](#contact)
 
 ---
@@ -307,6 +308,16 @@ This product contains various third-party components under other open source lic
 See the [NOTICE](NOTICE) file for more information.
 
 For license details, see the [LICENSE](LICENSE) file.
+
+---
+
+## 💼 Research Intern Position
+
+Research intern positions are open (base in Hangzhou, Beijing, Shanghai).
+
+**Research Area:** Multimodal Interaction, Multimodal Understanding and Generation, etc.
+
+**Contact:** dengchong.d@alibaba-inc.com and tanqing.cq@alibaba-inc.com
 
 ---
 

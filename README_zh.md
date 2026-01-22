@@ -29,6 +29,7 @@
 - [训练](#training)
 - [致谢](#acknowledgments)
 - [许可证](#license)
+- [实习生招聘](#-实习生招聘)
 - [联系我们](#contact)
 
 ---
@@ -308,6 +309,16 @@ Fun-Audio-Chat 是由阿里云开发的用于自然语音交互的大型音频�
 详情请参阅 [NOTICE](NOTICE) 文件。
 
 许可证详情请参阅 [LICENSE](LICENSE) 文件。
+
+---
+
+## 💼 实习生招聘
+
+研究实习生岗位开放（工作地点：杭州、北京、上海）。
+
+**研究方向：** 多模态交互、多模态理解与生成等
+
+**联系方式：** dengchong.d@alibaba-inc.com 和 tanqing.cq@alibaba-inc.com
 
 ---
 
