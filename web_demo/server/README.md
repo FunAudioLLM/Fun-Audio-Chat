@@ -16,6 +16,16 @@ From the project root directory, run:
 python -m web_demo.server.server
 ```
 
+### GPU Compatibility Launcher (sm_121 and newer)
+
+If you see NVRTC errors like `invalid value for --gpu-architecture` on newer GPUs,
+use the compatibility launcher to set conservative CUDA env defaults before importing
+Torch:
+
+```bash
+FUN_AUDIOCHAT_CUDA_COMPAT=1 python -m web_demo.server.server_gpu_compat --host 0.0.0.0 --port 11235
+```
+
 ## Command Line Arguments
 
 | Argument | Type | Default | Description |
@@ -53,4 +63,3 @@ Additional model parameters can be configured in `utils/constants.py`:
 ## License
 
 The present code is provided under the MIT license.
-
