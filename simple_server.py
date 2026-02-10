@@ -72,7 +72,8 @@ def load_model_if_needed(model_id: str):
         return
 
     print(f'Loading model: {model_id}')
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    force_cpu = os.environ.get('FORCE_CPU', '').strip().lower() in ('1', 'true', 'yes')
+    device = torch.device('cpu' if force_cpu else ('cuda' if torch.cuda.is_available() else 'cpu'))
     model_path = resolve_model_path(model_id)
 
     if is_personaplex(model_id):
