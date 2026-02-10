@@ -1,10 +1,13 @@
 import os
+os.environ.setdefault("TORCH_CUDA_ARCH_LIST", "9.0+PTX")
 import sys
 import uuid
 import json
 import re
 import time
 import torch
+torch._C._jit_set_nvfuser_enabled(False)
+torch._C._jit_set_texpr_fuser_enabled(False)
 import torchaudio
 import soundfile as sf
 import librosa
@@ -19,6 +22,7 @@ register_funaudiochat()
 from utils.cosyvoice_detokenizer import get_audio_detokenizer, token2wav
 from utils.constant import (
     DEFAULT_S2M_GEN_KWARGS,
+    DEFAULT_SP_GEN_KWARGS,
     DEFAULT_S2M_PROMPT,
     FUNCTION_CALLING_PROMPT,
     AUDIO_TEMPLATE,
@@ -89,6 +93,8 @@ def load_model_if_needed(model_id: str):
     ).eval()
 
     if hasattr(model, 'sp_gen_kwargs'):
+        # Match web_demo defaults to avoid CRQ dimension mismatches.
+        model.sp_gen_kwargs.update(DEFAULT_SP_GEN_KWARGS)
         model.sp_gen_kwargs.update({
             'text_greedy': False,
             'disable_speech': False,
@@ -506,6 +512,15 @@ def chunk_text(text: str, chunk_size: int = 48):
 
 def get_generation_kwargs():
     kwargs = dict(DEFAULT_S2M_GEN_KWARGS)
+
+    if not kwargs.get('bad_words_ids'):
+        try:
+            kwargs['bad_words_ids'] = [[
+                processor.tokenizer.convert_tokens_to_ids('<|audio_bos|>'),
+                processor.tokenizer.convert_tokens_to_ids('<|sil|>')
+            ]]
+        except Exception:
+            pass
 
     eos_token_id = getattr(processor.tokenizer, 'eos_token_id', None)
     if eos_token_id is None and hasattr(model.config, 'text_config'):
