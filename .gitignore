@@ -69,3 +69,6 @@ htmlcov/
 # Distribution
 *.whl
 
+
+# Server outputs
+output_audio/
