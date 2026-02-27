@@ -41,17 +41,18 @@ const buildURL = ({
   textSeed,
   audioSeed,
 }: {
-  workerAddr: string;
+  workerAddr: string;  // e.g. "iiz6uvvoybsdj7-8000.proxy.runpod.net"
   params: ModelParamsValues;
   workerAuthId?: string;
   email?: string;
   textSeed: number;
   audioSeed: number;
 }) => {
-  // 使用 Vite 代理方式连接后端
-  const wsProtocol = (window.location.protocol === 'https:') ? 'wss' : 'ws';
-  // workerAddr 包含模式信息用于代理路由
-  const url = new URL(`${wsProtocol}://${window.location.host}/api/${workerAddr}`);
+  const wsProtocol = (window.location.protocol === "https:") ? "wss" : "ws";
+
+  // Connect directly to backend worker on /api/chat
+  const url = new URL(`${wsProtocol}://${workerAddr}/api/chat`);
+
   if (workerAuthId) {
     url.searchParams.append("worker_auth_id", workerAuthId);
   }
@@ -67,7 +68,6 @@ const buildURL = ({
   url.searchParams.append("audio_seed", audioSeed.toString());
   url.searchParams.append("repetition_penalty_context", params.repetitionPenaltyContext.toString());
   url.searchParams.append("repetition_penalty", params.repetitionPenalty.toString());
-  // Add image params if given
   if (params.imageUrl != undefined) {
     url.searchParams.append("image_url", params.imageUrl.toString());
     url.searchParams.append("image_resolution", params.imageResolution.toString());
@@ -75,7 +75,6 @@ const buildURL = ({
   console.log(url.toString());
   return url.toString();
 };
-
 
 export const Conversation: FC<ConversationProps> = ({
   workerAddr,

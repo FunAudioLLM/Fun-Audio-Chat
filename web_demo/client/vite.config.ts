@@ -4,7 +4,7 @@ import topLevelAwait from "vite-plugin-top-level-await";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
 
-  const simplexTarget = env.VITE_SIMPLEX_TARGET || "http://localhost:11236";
+  const simplexTarget = env.VITE_SIMPLEX_TARGET || "http://localhost:8000";
   
   // proxy config for half-duplex (11236)
   const proxyConf: Record<string, string | ProxyOptions> = {
@@ -31,11 +31,8 @@ export default defineConfig(({ mode }) => {
   return {
     server: {
       host: "0.0.0.0",
-      port: 80,
-      https: {
-        cert: "./cert.pem",
-        key: "./key.pem",
-      },
+      port: 8010,
+      https: false,
       proxy: {
         ...proxyConf,
       }
