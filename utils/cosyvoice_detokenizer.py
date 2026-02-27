@@ -56,7 +56,7 @@ def token2wav(cosyvoice3_model, tokens, embedding=None, token_hop_len=25 * 30, p
         second_last_segment = tokens_list.pop()
 
         # Merge last two segments
-        merged_audio = last_segment + second_last_segment
+        merged_audio = second_last_segment + last_segment
         total_length = len(merged_audio)
 
         # Split merged audio into two equal parts
